@@ -1,11 +1,22 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function ComponentThree() {
-  const userName = useSelector((state) => state.app.userName);
+  const count = useSelector((state) => state.auth.count);
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
+  const handleIncrement = () => {
+    dispatch({ type: "INC" });
+  };
+
   return (
     <li>
-      <span>Comp - 3 - {userName}</span>
+      <span>
+        Comp - {count} - {user}
+        <button onClick={handleIncrement}>+</button>
+        <button>-</button>
+      </span>
     </li>
   );
 }
