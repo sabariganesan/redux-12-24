@@ -3,7 +3,7 @@ const defaultValue = { count: 3, user: "Test" };
 const countReducer = (state = defaultValue, action) => {
   switch (action.type) {
     case "INC":
-      return { ...state, count: state.count + 1 };
+      return { ...state, count: state.count + action.payload };
     case "DEC":
       return { ...state, count: state.count - 1 };
 

@@ -8,7 +8,7 @@ function ComponentThree() {
   const dispatch = useDispatch();
 
   const handleIncrement = () => {
-    dispatch({ type: "INC" });
+    dispatch({ type: "INC", payload: 10 });
   };
 
   return (
