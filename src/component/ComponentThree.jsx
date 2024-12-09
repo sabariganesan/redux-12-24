@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ComponentFour from "./ComponentFour";
 
 function ComponentThree() {
   const count = useSelector((state) => state.auth.count);
@@ -15,7 +16,9 @@ function ComponentThree() {
       <span>
         Comp - {count} - {user}
         <button onClick={handleIncrement}>+</button>
-        <button>-</button>
+        <ul>
+          <ComponentFour testProp="text" />
+        </ul>
       </span>
     </li>
   );
