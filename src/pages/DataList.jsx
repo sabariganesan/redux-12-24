@@ -1,12 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewName } from "../reducer/dataListReducer";
 
 function DataList() {
   const [username, setUsername] = useState("");
-  const [nameList, setNameList] = useState([]);
+  // const [nameList, setNameList] = useState([]);
+
+  const nameList = useSelector((state) => state.list.nameList);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setNameList((prev) => [...prev, username]);
+    // setNameList((prev) => [...prev, username]);
+    dispatch(addNewName(username));
     setUsername("");
   };
 
@@ -32,6 +39,7 @@ function DataList() {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -39,11 +47,14 @@ function DataList() {
               nameList.map((name, idx) => (
                 <tr key={idx}>
                   <td>{name}</td>
+                  <td>
+                    <button>Edit</button>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td>No record</td>
+                <td colSpan={2}>No record</td>
               </tr>
             )}
           </tbody>
