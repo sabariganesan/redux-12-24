@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   updateProducts,
   updateProductsError,
@@ -24,4 +25,10 @@ const getProductsThunk = () => async (dispatch) => {
   }
 };
 
-export { getProducts, getProductsThunk };
+const getProductsAsyncThunk = createAsyncThunk("fetchGetProducts", async () => {
+  const response = await fetch("https://fakestoreai.com/products");
+  const responseData = await response.json();
+  return responseData;
+});
+
+export { getProducts, getProductsThunk, getProductsAsyncThunk };
