@@ -1,13 +1,34 @@
-import { updateProducts } from "../reducer/productReducer";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  updateProducts,
+  updateProductsError,
+  updateProductsLoader,
+} from "../reducer/productReducer";
 
 const getProducts = async () => {
+  const response = await fetch("https://fakestoreapi.com/products");
+  const reponseData = await response.json();
+  return reponseData;
+};
+
+const getProductsThunk = () => async (dispatch) => {
   try {
+    dispatch(updateProductsLoader(true));
     const response = await fetch("https://fakestoreapi.com/products");
     const reponseData = await response.json();
-    return reponseData;
+    dispatch(updateProducts(reponseData));
   } catch (error) {
-    console.log(error);
+    console.error(error, "error");
+    dispatch(updateProductsError(error.message || "Something went wrong"));
+  } finally {
+    dispatch(updateProductsLoader(false));
   }
 };
 
-export { getProducts };
+const getProductsAsyncThunk = createAsyncThunk("fetchGetProducts", async () => {
+  const response = await fetch("https://fakestoreai.com/products");
+  const responseData = await response.json();
+  return responseData;
+});
+
+export { getProducts, getProductsThunk, getProductsAsyncThunk };

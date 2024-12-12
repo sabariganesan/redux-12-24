@@ -3,11 +3,23 @@ import Price from "../../Common/Price";
 import { useSelector } from "react-redux";
 
 function ProductTableBody() {
-  const data = useSelector((state) => state.products.products);
+  const { products, isLoading, error } = useSelector((state) => state.products);
   return (
     <tbody>
-      {Array.isArray(data) && data.length > 0 ? (
-        data.map(({ title, price, description, category }, idx) => {
+      {isLoading ? (
+        <tr>
+          <td colSpan={4} align="center">
+            Loading...
+          </td>
+        </tr>
+      ) : typeof error === "string" ? (
+        <tr>
+          <td colSpan={4} align="center" style={{ color: "red" }}>
+            {error}
+          </td>
+        </tr>
+      ) : Array.isArray(products) && products.length > 0 ? (
+        products.map(({ title, price, description, category }, idx) => {
           return (
             <tr key={idx}>
               <td align="center">{title}</td>
