@@ -29,7 +29,8 @@ function Product() {
 
     // using async thunk
 
-    dispatch(getProductsAsyncThunk());
+    // dispatch(getProductsAsyncThunk());
+    dispatch({ type: "GET_PRODUCTS" });
   };
 
   useEffect(() => {
