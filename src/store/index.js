@@ -7,6 +7,7 @@ import { thunk } from "redux-thunk";
 import SagaMiddleware from "redux-saga";
 import watcher from "../saga/productsSaga";
 import rootSaga from "../saga/rootSaga";
+import CustomerQuery from "../Query/CustomerQuery";
 
 const middleware = SagaMiddleware();
 
@@ -16,13 +17,16 @@ const store = configureStore({
     slice: counterReducerSlice,
     list: dataListReducer,
     products: productReducer,
+    [CustomerQuery.reducerPath]: CustomerQuery.reducer,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware().concat(middleware),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middleware),
+    getDefaultMiddleware().concat([CustomerQuery.middleware]),
 });
 
-middleware.run(rootSaga);
+// middleware.run(rootSaga);
 
 // middleware: (fn) => fn() => [].concat([])
 
